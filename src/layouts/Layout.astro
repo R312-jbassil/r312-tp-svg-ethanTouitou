@@ -1,21 +1,85 @@
 ---
-import "../styles/global.css";
+const user = Astro.locals.user; // Récupère l'utilisateur connecté (si existant)
 ---
 
-<!doctype html>
-<html lang="en" data-theme="light" class="h-full">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body class="h-full">
-		<div class="h-full flex flex-col min-h-0">
-			<div class="flex-1 min-h-0">
-				<slot />
-			</div>
-		</div>
-	</body>
+<html lang="fr" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Mon site sécurisé</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@3.8.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-base-200 text-base-content">
+    <!-- 🔹 Barre de navigation -->
+    <header class="navbar bg-base-100 shadow-md px-6">
+      <div class="flex-1">
+        <a href="/" class="text-xl font-bold hover:text-primary transition">
+          🧩 Mon Projet
+        </a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        {user ? (
+          <>
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-gray-600">
+                Connecté en tant que <span class="font-medium">{user.username}</span>
+              </span>
+              <!-- 🔸 Bouton déconnexion -->
+              <form method="POST" action="/api/logout" class="m-0 p-0">
+                <button type="submit" class="btn btn-error btn-sm">
+                  Déconnexion
+                </button>
+              </form>
+            </div>
+          </>
+        ) : (
+          <>
+            <a href="/login" class="btn btn-outline btn-sm">Se connecter</a>
+            <a href="/signup" class="btn btn-primary btn-sm">S’inscrire</a>
+          </>
+        )}
+      </div>
+    </header>
+
+    <!-- 🔹 Contenu principal -->
+    <main class="flex-grow container mx-auto px-6 py-8">
+      <slot />
+    </main>
+
+    <!-- 🔹 Pied de page -->
+    <footer class="footer footer-center bg-base-300 text-base-content p-4 mt-8">
+      <p class="text-sm">
+        © {new Date().getFullYear()} - Développé par <b>Noah Rognon</b> | Projet MMI
+      </p>
+    </footer>
+
+    <!-- 🔹 (Optionnel) Switch Dark / Light mode -->
+    <script>
+      //@ts-nocheck
+      const html = document.documentElement;
+      const current = localStorage.getItem("theme") || "light";
+      html.setAttribute("data-theme", current);
+
+      function toggleTheme() {
+        const newTheme = html.getAttribute("data-theme") === "light" ? "dark" : "light";
+        html.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+      }
+    </script>
+
+    <button
+      onclick="toggleTheme()"
+      class="fixed bottom-5 right-5 btn btn-circle btn-outline"
+      title="Changer le thème"
+    >
+      🌓
+    </button>
+  </body>
 </html>

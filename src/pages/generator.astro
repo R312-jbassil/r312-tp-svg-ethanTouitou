@@ -1,87 +1,92 @@
 ---
 const title = "Generateur SVG";
 import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <html lang="fr">
-    <head>
-        <meta charset="utf-8" />
-        <title>{title}</title>
-    </head>
-    <body class="min-h-screen bg-base-200 flex items-center justify-center p-6">
-        <main
-            class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    <Layout>
+        <head>
+            <meta charset="utf-8" />
+            <title>{title}</title>
+        </head>
+        <body
+            class="min-h-screen bg-base-200 flex items-center justify-center p-6"
         >
-            <!-- DIV 1 : Prompt utilisateur -->
-            <div class="card bg-base-100 shadow-md border border-base-300">
-                <div class="card-body">
-                    <h2 class="card-title">Prompt</h2>
-                    <textarea
-                        id="user-prompt"
-                        class="textarea textarea-bordered w-full h-40"
-                        placeholder="Decris l'illustration que tu veux generer..."
-                    ></textarea>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <button
-                            id="generate-button"
-                            class="btn btn-primary flex-1"
-                        >
-                            Generer
-                        </button>
-                        <button
-                            id="edit-button"
-                            class="btn btn-secondary flex-1"
-                        >
-                            Edit
-                        </button>
+            <main
+                class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+                <!-- DIV 1 : Prompt utilisateur -->
+                <div class="card bg-base-100 shadow-md border border-base-300">
+                    <div class="card-body">
+                        <h2 class="card-title">Prompt</h2>
+                        <textarea
+                            id="user-prompt"
+                            class="textarea textarea-bordered w-full h-40"
+                            placeholder="Decris l'illustration que tu veux generer..."
+                        ></textarea>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <button
+                                id="generate-button"
+                                class="btn btn-primary flex-1"
+                            >
+                                Generer
+                            </button>
+                            <button
+                                id="edit-button"
+                                class="btn btn-secondary flex-1"
+                            >
+                                Edit
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- DIV 2 : Code genere -->
-            <div class="card bg-base-100 shadow-md border border-base-300">
-                <div class="card-body">
-                    <h2 class="card-title">Code SVG</h2>
-                    <pre
-                        class="mockup-code w-full h-80 overflow-auto">
+                <!-- DIV 2 : Code genere -->
+                <div class="card bg-base-100 shadow-md border border-base-300">
+                    <div class="card-body">
+                        <h2 class="card-title">Code SVG</h2>
+                        <pre
+                            class="mockup-code w-full h-80 overflow-auto">
                         <!-- IMPORTANT : balise non auto-fermee -->
                         <code id="svg-output" class="text-xs" />
                     </pre>
-                    <label class="form-control w-full mt-4">
-                        <span class="label-text">Nom du SVG</span>
-                        <input
-                            id="svg-name"
-                            class="input input-bordered w-full"
-                            placeholder="Mon illustration"
-                        />
-                    </label>
-                    <button
-                        id="save-button"
-                        type="button"
-                        class="btn btn-secondary mt-2"
-                    >
-                        Enregistrer dans la bibliotheque
-                    </button>
-                    <a class="btn btn-primary" href="/gallery">Gallery</a>
-                    <p id="save-status" class="text-sm opacity-70 mt-2"></p>
-                </div>
-            </div>
-
-            <!-- DIV 3 : Apercu SVG -->
-            <div class="card bg-base-100 shadow-md border border-base-300">
-                <div class="card-body">
-                    <h2 class="card-title">Apercu</h2>
-                    <div
-                        id="svg-container"
-                        class="w-full h-80 flex items-center justify-center bg-base-200 rounded-box overflow-auto"
-                    >
-                        <span class="text-base-content/50">
-                            Ton SVG apparaitra ici
-                        </span>
+                        <label class="form-control w-full mt-4">
+                            <span class="label-text">Nom du SVG</span>
+                            <input
+                                id="svg-name"
+                                class="input input-bordered w-full"
+                                placeholder="Mon illustration"
+                            />
+                        </label>
+                        <button
+                            id="save-button"
+                            type="button"
+                            class="btn btn-secondary mt-2"
+                        >
+                            Enregistrer dans la bibliotheque
+                        </button>
+                        <a class="btn btn-primary" href="/gallery">Gallery</a>
+                        <p id="save-status" class="text-sm opacity-70 mt-2"></p>
                     </div>
                 </div>
-            </div>
-        </main>
+
+                <!-- DIV 3 : Apercu SVG -->
+                <div class="card bg-base-100 shadow-md border border-base-300">
+                    <div class="card-body">
+                        <h2 class="card-title">Apercu</h2>
+                        <div
+                            id="svg-container"
+                            class="w-full h-80 flex items-center justify-center bg-base-200 rounded-box overflow-auto"
+                        >
+                            <span class="text-base-content/50">
+                                Ton SVG apparaitra ici
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </main></body
+        >
 
         <!-- Script cote client -->
         <script>
@@ -351,5 +356,5 @@ import "../styles/global.css";
                 editButton.disabled = true;
             }
         </script>
-    </body>
+    </Layout>
 </html>
